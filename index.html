@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Trip to Tokyo: Australian Guests and Hosts</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e3a8a', // Deep Blue
+                        secondary: '#3b82f6', // Bright Blue
+                        accent: '#f59e0b', // Warm Amber
+                        dark: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation Header -->
+    <header class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2.5 rounded-xl border border-white/20">
+                    <i class="fa-solid fa-train-subway text-accent text-2xl"></i>
+                </div>
+                <div>
+                    <h1 id="app-main-heading" class="text-lg md:text-xl font-bold tracking-tight">Field Trip to Tokyo for Australian Guests and Hosts</h1>
+                    <p id="app-sub-heading" class="text-xs text-blue-200">Date: Sunday, October 25, 2026 | Participants: 8 Students + 3 Chaperones (Total: 11)</p>
+                </div>
+            </div>
+            <div>
+                <button onclick="toggleLanguage()" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2">
+                    <i class="fa-solid fa-language text-accent"></i>
+                    <span id="lang-btn-text">日本語 / English</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- Quick Stats / Overview Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="bg-blue-50 p-3 rounded-xl text-primary">
+                    <i class="fa-solid fa-users text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium" id="stat-participants">Total Participants (8 Students + 3 Chaperones)</p>
+                    <p class="text-lg font-bold text-slate-900">11 Pax</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="bg-amber-50 p-3 rounded-xl text-accent">
+                    <i class="fa-solid fa-calendar-days text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium" id="stat-date">Sunday Day Trip Schedule</p>
+                    <p class="text-lg font-bold text-slate-900">Oct 25, 2026</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="bg-emerald-50 p-3 rounded-xl text-emerald-600">
+                    <i class="fa-solid fa-wallet text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium" id="stat-budget">Estimated Total Budget (All 11)</p>
+                    <p class="text-lg font-bold text-slate-900">Interactive</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex items-center space-x-4">
+                <div class="bg-purple-50 p-3 rounded-xl text-purple-600">
+                    <i class="fa-solid fa-shield-heart text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500 font-medium" id="stat-safety">Chaperoned & Safety Compliant Route</p>
+                    <p class="text-lg font-bold text-slate-900">100% Verified</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex overflow-x-auto space-x-2 border-b border-slate-200 pb-2">
+            <button onclick="switchTab('itinerary')" id="tab-btn-itinerary" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm bg-primary text-white transition flex items-center space-x-2 shrink-0">
+                <i class="fa-solid fa-route"></i>
+                <span id="menu-itinerary">Detailed Itinerary</span>
+            </button>
+            <button onclick="switchTab('routes')" id="tab-btn-routes" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition flex items-center space-x-2 shrink-0">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span id="menu-routes">Routes & Logistics</span>
+            </button>
+            <button onclick="switchTab('budget')" id="tab-btn-budget" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition flex items-center space-x-2 shrink-0">
+                <i class="fa-solid fa-calculator"></i>
+                <span id="menu-budget">Budget & Cost Calculator</span>
+            </button>
+            <button onclick="switchTab('proposal')" id="tab-btn-proposal" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition flex items-center space-x-2 shrink-0">
+                <i class="fa-solid fa-file-shield"></i>
+                <span id="menu-proposal">Admin Safety & Notes</span>
+            </button>
+        </div>
+
+        <!-- TAB 1: DETAILED ITINERARY -->
+        <div id="tab-itinerary" class="tab-content space-y-6">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 id="itin-title" class="text-xl font-bold text-slate-900">Comprehensive Day Trip Schedule (October 25, 2026)</h3>
+                    <p class="text-sm text-slate-500 mt-1" id="itin-sub">Structured timeline covering morning transit, cultural sightseeing, iconic Tokyo landmarks, evening theme park, and late return.</p>
+                </div>
+
+                <div class="relative border-l-2 border-primary/20 ml-4 space-y-8 py-2">
+                    <!-- Step 1 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">06:30 - 08:30</span>
+                        <h4 id="itin-1-title" class="text-base font-bold text-slate-900 mt-0.5">Hitachi Station Departure to Tokyo Station</h4>
+                        <p id="itin-1-desc" class="text-sm text-slate-600 mt-1">Depart early morning via JR Highway Bus or Express Train from Hitachi Station. Arrive at Tokyo Station (Nihonbashi / Yaesu Exit).</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">08:30 - 09:30</span>
+                        <h4 id="itin-2-title" class="text-base font-bold text-slate-900 mt-0.5">Tokyo Station Photo Op & Transit to Asakusa</h4>
+                        <p id="itin-2-desc" class="text-sm text-slate-600 mt-1">Group photo session in front of the historic Tokyo Station Marunouchi building. Transfer via Ginza Line to Asakusa Station.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">09:30 - 11:30</span>
+                        <h4 id="itin-3-title" class="text-base font-bold text-slate-900 mt-0.5">Asakusa Exploration & Senso-ji Temple</h4>
+                        <p id="itin-3-desc" class="text-sm text-slate-600 mt-1">A 1-hour structured walking tour of Kaminarimon Gate, Nakamise-dori shopping street, and Senso-ji Temple with chaperones.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">11:30 - 14:00</span>
+                        <h4 id="itin-4-title" class="text-base font-bold text-slate-900 mt-0.5">Tokyo Skytree Visit & Lunch (Observation Deck Tour)</h4>
+                        <p id="itin-4-desc" class="text-sm text-slate-600 mt-1">Fast transit to Tokyo Skytree. Ascend to the Tembo Deck / Galleria for 10 participants. Enjoy lunch and panoramic Tokyo views at Solamachi.</p>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">14:30 - 16:30</span>
+                        <h4 id="itin-5-title" class="text-base font-bold text-slate-900 mt-0.5">Shinjuku Scramble Crossing & City Experience</h4>
+                        <p id="itin-5-desc" class="text-sm text-slate-600 mt-1">Travel via train to Shinjuku. Experience iconic Tokyo streetscapes, group safety briefing around major pedestrian crossings, and brief break.</p>
+                    </div>
+
+                    <!-- Step 6 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-primary ring-4 ring-blue-50"></div>
+                        <span class="text-xs font-bold text-accent uppercase tracking-wider">17:00 - 21:00</span>
+                        <h4 id="itin-6-title" class="text-base font-bold text-slate-900 mt-0.5">Tokyo Disney Resort (After 5PM Passport Entry)</h4>
+                        <p id="itin-6-desc" class="text-sm text-slate-600 mt-1">Arrive at Tokyo Disney Resort before 17:00. Enter with After 5 Passport for evening attractions, dinner, and the spectacular evening parade.</p>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="relative pl-6">
+                        <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-600 ring-4 ring-emerald-50"></div>
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">21:45 - 23:30</span>
+                        <h4 id="itin-7-title" class="text-base font-bold text-slate-900 mt-0.5">Return Journey to Hitachi Station (Bus or Limited Express)</h4>
+                        <p id="itin-7-desc" class="text-sm text-slate-600 mt-1">Board late-evening limited express train (e.g., 21:45 departure from Tokyo Station) back to Hitachi Station.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: ROUTES & LOGISTICS -->
+        <div id="tab-routes" class="tab-content space-y-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Leg 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span id="leg-1-tag" class="bg-blue-100 text-primary text-xs font-bold px-3 py-1 rounded-full">Leg 1</span>
+                        <span id="route-1-dur" class="text-xs text-slate-500 font-medium">Duration: ~1 hr 45 min - 2 hrs</span>
+                    </div>
+                    <div>
+                        <h4 id="route-1-sub" class="text-xs font-semibold text-accent uppercase tracking-wide">Hitachi ➔ Tokyo Station</h4>
+                        <h3 id="route-1-title" class="text-lg font-bold text-slate-900">Morning Highway Bus / Limited Express</h3>
+                    </div>
+                    <p id="route-1-desc" class="text-sm text-slate-600">Direct JR Highway Bus from Hitachi Station to Tokyo Station (Nihonbashi Exit), or Limited Express Train (Joban Line). Takes ~2 hours. Cost approx. ¥3,000 per person.</p>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-700">
+                        <span id="route-1-cost">Cost (11 pax): ¥33,000 (approx)</span>
+                        <i class="fa-solid fa-bus text-primary"></i>
+                    </div>
+                </div>
+
+                <!-- Leg 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span id="leg-2-tag" class="bg-blue-100 text-primary text-xs font-bold px-3 py-1 rounded-full">Leg 2</span>
+                        <span id="route-2-dur" class="text-xs text-slate-500 font-medium">Duration: 15 minutes</span>
+                    </div>
+                    <div>
+                        <h4 id="route-2-sub" class="text-xs font-semibold text-accent uppercase tracking-wide">Tokyo Station ➔ Asakusa</h4>
+                        <h3 id="route-2-title" class="text-lg font-bold text-slate-900">Tokyo Metro Ginza Line</h3>
+                    </div>
+                    <p id="route-2-desc" class="text-sm text-slate-600">Walk to Ginza Line platform at Tokyo/Nihonbashi, take direct subway to Asakusa Station (G19). Fast, cheap, and convenient for groups.</p>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-700">
+                        <span id="route-2-cost">Cost (11 pax): ¥2,200 (¥200 / person)</span>
+                        <i class="fa-solid fa-train-subway text-primary"></i>
+                    </div>
+                </div>
+
+                <!-- Leg 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span id="leg-3-tag" class="bg-blue-100 text-primary text-xs font-bold px-3 py-1 rounded-full">Leg 3</span>
+                        <span id="route-3-dur" class="text-xs text-slate-500 font-medium">Duration: 3 mins train / 15 mins walk</span>
+                    </div>
+                    <div>
+                        <h4 id="route-3-sub" class="text-xs font-semibold text-accent uppercase tracking-wide">Asakusa ➔ Tokyo Skytree</h4>
+                        <h3 id="route-3-title" class="text-lg font-bold text-slate-900">Tobu Skytree Line / Walk across Sumida River</h3>
+                    </div>
+                    <p id="route-3-desc" class="text-sm text-slate-600">Fastest route: Tobu Skytree Line from Asakusa to Tokyo Skytree Station (1 stop, 3 mins) or a scenic 15-minute group walk across the Sumida River pedestrian bridge.</p>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-700">
+                        <span id="route-3-cost">Cost (11 pax): ¥1,760 train (¥160 / person) or Free (Walk)</span>
+                        <i class="fa-solid fa-person-walking text-primary"></i>
+                    </div>
+                </div>
+
+                <!-- Leg 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span id="leg-4-tag" class="bg-blue-100 text-primary text-xs font-bold px-3 py-1 rounded-full">Leg 4</span>
+                        <span id="route-4-dur" class="text-xs text-slate-500 font-medium">Duration: ~75 mins total transit</span>
+                    </div>
+                    <div>
+                        <h4 id="route-4-sub" class="text-xs font-semibold text-accent uppercase tracking-wide">Skytree ➔ Shinjuku ➔ Disney Resort</h4>
+                        <h3 id="route-4-title" class="text-lg font-bold text-slate-900">Train to Shinjuku, then JR Keiyo Line to Maihama</h3>
+                    </div>
+                    <p id="route-4-desc" class="text-sm text-slate-600">Subway/train transit to Shinjuku for the afternoon session, then group transfer via JR lines to Tokyo Station and direct to Maihama Station (Tokyo Disney Resort).</p>
+                    <div class="pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-700">
+                        <span id="route-4-cost">Cost (11 pax): Approx. ¥6,050 total</span>
+                        <i class="fa-solid fa-train text-primary"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Return Transport Detailed Breakdown -->
+            <div class="bg-blue-900 text-white rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
+                <h3 id="return-title" class="text-xl font-bold flex items-center">
+                    <i class="fa-solid fa-bus text-accent mr-3"></i> Return Transport Options: Tokyo Disney Resort / Tokyo to Hitachi Station
+                </h3>
+                <p class="text-blue-100 text-sm leading-relaxed" id="return-desc">
+                    For returning to Hitachi after the evening events, two structured and reliable return options are available: direct highway bus schedules (such as 18:15 and 20:30 departures) or JR Limited Express (特急) trains from Tokyo/Ueno, including the 21:45 train from Tokyo Station.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-blue-800">
+                    <div class="bg-blue-950/60 p-5 rounded-xl border border-blue-800 space-y-3">
+                        <h4 id="return-opt-a-title" class="font-bold text-amber-300 text-base"><i class="fa-solid fa-bus mr-2"></i> Option A: Direct Highway Bus (e.g., 20:30 Departure)</h4>
+                        <ul class="text-sm text-blue-100 space-y-2">
+                            <li id="return-opt-a-route"><strong>Route:</strong> Tokyo Station / Expressway bus connections from Tokyo Disney Resort area to Hitachi Station.</li>
+                            <li id="return-opt-a-time"><strong>Departure Time:</strong> Evening departures around 18:15 or 20:30.</li>
+                            <li id="return-opt-a-dur"><strong>Duration:</strong> Approx. 2 hours 30 minutes.</li>
+                            <li id="return-opt-a-cost"><strong>Cost per person:</strong> Approx. ¥4,000 (Total for 11: ¥44,000).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-950/60 p-5 rounded-xl border border-blue-800 space-y-3">
+                        <h4 id="return-opt-b-title" class="font-bold text-amber-300 text-base"><i class="fa-solid fa-train mr-2"></i> Option B: JR Limited Express (特急) Train Breakdown</h4>
+                        <ul class="text-sm text-blue-100 space-y-2">
+                            <li id="return-opt-b-route"><strong>Route:</strong> Maihama to Tokyo/Ueno via JR Keiyo & Yamanote/Keihin-Tohoku Line, then Joban Line Limited Express (Hitachi/Tokiwa) to Hitachi Station.</li>
+                            <li id="return-opt-b-sched"><strong>Schedule:</strong> Evening departures including the 21:45 Limited Express train from Tokyo Station to Hitachi Station.</li>
+                            <li id="return-opt-b-dur"><strong>Duration:</strong> ~85 minutes from Tokyo to Hitachi.</li>
+                            <li id="return-opt-b-cost"><strong>Cost per person:</strong> Reserved Limited Express fare approx. ¥5,000 per person.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BUDGET & COST CALCULATOR -->
+        <div id="tab-budget" class="tab-content space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <h3 id="budget-heading" class="text-xl font-bold text-slate-900">Interactive Cost & Budget Estimation</h3>
+                        <p id="budget-sub" class="text-sm text-slate-500 mt-1">Adjust the participant count (1–11) below to recalculate costs instantly.</p>
+                    </div>
+                    <button onclick="resetBudget()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-2 w-full md:w-auto">
+                        <i class="fa-solid fa-rotate-right text-primary"></i>
+                        <span id="reset-btn-text">Reset Defaults</span>
+                    </button>
+                </div>
+
+                <!-- Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 text-xs uppercase font-bold tracking-wider">
+                                <th id="th-category" class="py-3 px-4 rounded-l-xl">Category / Item</th>
+                                <th id="th-unit" class="py-3 px-4 text-center">Unit Price (JPY)</th>
+                                <th id="th-qty" class="py-3 px-4 text-center">Quantity / Pax (1-11)</th>
+                                <th id="th-total" class="py-3 px-4 text-right rounded-r-xl">Total (JPY)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm">
+                            <!-- Item 1 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-1-title">1. Hitachi to Tokyo Station (Highway Bus / Train)</span>
+                                    <div id="item-1-desc" class="text-xs text-slate-500">Morning transport for participants</div>
+                                </td>
+                                <td id="price-1" class="py-4 px-4 text-center font-semibold text-slate-600">¥3,000</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-1" min="1" max="11" value="11" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-1" class="py-4 px-4 text-right font-semibold">¥33,000</td>
+                            </tr>
+                            <!-- Item 2 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-2-title">2. Tokyo Metro & Local Transfers (Asakusa & Shinjuku)</span>
+                                    <div id="item-2-desc" class="text-xs text-slate-500">Intra-city metro passes / tickets</div>
+                                </td>
+                                <td id="price-2" class="py-4 px-4 text-center font-semibold text-slate-600">¥800</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-2" min="1" max="11" value="11" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-2" class="py-4 px-4 text-right font-semibold">¥8,800</td>
+                            </tr>
+                            <!-- Item 3 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-3-title">3. Tokyo Skytree Observation Deck (Tembo Deck)</span>
+                                    <div id="item-3-desc" class="text-xs text-slate-500">Adult rate (max 11 participants)</div>
+                                </td>
+                                <td id="price-3" class="py-4 px-4 text-center font-semibold text-slate-600">¥2,400</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-3" min="1" max="11" value="10" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-3" class="py-4 px-4 text-right font-semibold">¥24,000</td>
+                            </tr>
+                            <!-- Item 4 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-4-title">4. Tokyo Disney Resort After 5PM Passport</span>
+                                    <div id="item-4-desc" class="text-xs text-slate-500">Evening entry for parade and rides</div>
+                                </td>
+                                <td id="price-4" class="py-4 px-4 text-center font-semibold text-slate-600">¥7,500</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-4" min="1" max="11" value="11" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-4" class="py-4 px-4 text-right font-semibold">¥82,500</td>
+                            </tr>
+                            <!-- Item 5 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-5-title">5. Return Bus / Limited Express to Hitachi Station</span>
+                                    <div id="item-5-desc" class="text-xs text-slate-500">Late night secure return transport (e.g. 21:45 train)</div>
+                                </td>
+                                <td id="price-5" class="py-4 px-4 text-center font-semibold text-slate-600">¥5,000</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-5" min="1" max="11" value="11" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-5" class="py-4 px-4 text-right font-semibold">¥55,000</td>
+                            </tr>
+                            <!-- Item 6 -->
+                            <tr>
+                                <td class="py-4 px-4 font-medium text-slate-900">
+                                    <span id="item-6-title">6. Food & Beverage Allowance (Maximum Budget)</span>
+                                    <div id="item-6-desc" class="text-xs text-slate-500">Lunch, snacks, and dinner allowance</div>
+                                </td>
+                                <td id="price-6" class="py-4 px-4 text-center font-semibold text-slate-600">¥2,273</td>
+                                <td class="py-4 px-4 text-center">
+                                    <input type="number" id="qty-6" min="1" max="11" value="11" oninput="updateBudget()" class="w-16 text-center border border-slate-300 rounded-lg py-1 px-2 font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                </td>
+                                <td id="total-6" class="py-4 px-4 text-right font-semibold">¥24,993</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-slate-50 font-bold text-slate-900 text-base">
+                                <td colspan="3" class="py-4 px-4 text-right"><span id="total-cost-label">Estimated Total Cost:</span></td>
+                                <td id="total-cost-display" class="py-4 px-4 text-right text-primary text-xl">¥252,793</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Food & Bev Specific Policy -->
+                <div class="bg-blue-50 border border-blue-100 p-5 rounded-xl flex items-start space-x-4">
+                    <div class="bg-blue-100 text-primary p-2.5 rounded-xl mt-0.5">
+                        <i class="fa-solid fa-receipt text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 id="food-note-title" class="font-bold text-slate-900 text-sm">Food & Beverage Policy</h4>
+                        <p id="food-note-desc" class="text-xs text-slate-600 mt-1">Food & Beverages will be purchased upon request for Chaperones. All receipts will be processed by 明秀学園 staff member.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: PROPOSAL NOTES / ADMIN SAFETY -->
+        <div id="tab-proposal" class="tab-content space-y-6 hidden">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200 space-y-6">
+                <h3 id="prop-title" class="text-xl font-bold text-slate-900 flex items-center">
+                    <i class="fa-solid fa-file-shield text-primary mr-3"></i> Proposal Notes for Australian Guests and Hosts
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h4 id="prop-ratio-title" class="font-bold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-shield-halved text-emerald-600 mr-2"></i> Chaperone & Student Ratio
+                        </h4>
+                        <p id="prop-ratio-desc" class="text-xs text-slate-600 leading-relaxed">
+                            With 3 experienced chaperones supervising 8 high school students (a 1:2.6 ratio), student safety and accountability are maintained throughout all transit junctions (Tokyo Station, Asakusa, Shinjuku, and Disney Resort).
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h4 id="prop-time-title" class="font-bold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-clock-rotate-left text-blue-600 mr-2"></i> Time Management & Contingency
+                        </h4>
+                        <p id="prop-time-desc" class="text-xs text-slate-600 leading-relaxed">
+                            All scheduled stops have buffer times. The After 5PM passport ensures Australian guests and hosts enjoy the peak evening atmosphere and parade at Disney Resort without excessive fatigue before the late-evening return to Hitachi.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+                        <h4 id="prop-next-title" class="font-bold text-slate-900 text-base flex items-center">
+                            <i class="fa-solid fa-star text-amber-500 mr-2"></i> Trip Value & Experience Highlights
+                        </h4>
+                        <p id="prop-next-desc" class="text-xs text-slate-600 leading-relaxed">
+                            A good value for money experience that mixes ancient Tokyo with modern Tokyo and appeals to both young and not so young alike.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+            <p id="footer-text-1" class="text-xs">Field Trip Proposal & Interactive Planner | Australian Guests and Hosts Excursion Project</p>
+            <p id="footer-text-2" class="text-xs text-slate-500">Date of Travel: Sunday, October 25, 2026 | Bilingual Support (EN / JA)</p>
+        </div>
+    </footer>
+
+    <!-- Script / Interactivity -->
+    <script>
+        let currentLang = 'en';
+
+        const translations = {
+            en: {
+                appMainHeading: "Field Trip to Tokyo for Australian Guests and Hosts",
+                appSubHeading: "Date: Sunday, October 25, 2026 | Participants: 8 Students + 3 Chaperones (Total: 11)",
+                langBtnText: "日本語 / English",
+                statParticipants: "Total Participants (8 Students + 3 Chaperones)",
+                statDate: "Sunday Day Trip Schedule",
+                statBudget: "Estimated Total Budget (All 11)",
+                statSafety: "Chaperoned & Safety Compliant Route",
+                menuItinerary: "Detailed Itinerary",
+                menuRoutes: "Routes & Logistics",
+                menuBudget: "Budget & Cost Calculator",
+                menuProposal: "Admin Safety & Notes",
+                
+                itinTitle: "Comprehensive Day Trip Schedule (October 25, 2026)",
+                itinSub: "Structured timeline covering morning transit, cultural sightseeing, iconic Tokyo landmarks, evening theme park, and late return.",
+                itin1Title: "Hitachi Station Departure to Tokyo Station",
+                itin1Desc: "Depart early morning via JR Highway Bus or Express Train from Hitachi Station. Arrive at Tokyo Station (Nihonbashi / Yaesu Exit).",
+                itin2Title: "Tokyo Station Photo Op & Transit to Asakusa",
+                itin2Desc: "Group photo session in front of the historic Tokyo Station Marunouchi building. Transfer via Ginza Line to Asakusa Station.",
+                itin3Title: "Asakusa Exploration & Senso-ji Temple",
+                itin3Desc: "A 1-hour structured walking tour of Kaminarimon Gate, Nakamise-dori shopping street, and Senso-ji Temple with chaperones.",
+                itin4Title: "Tokyo Skytree Visit & Lunch (Observation Deck Tour)",
+                itin4Desc: "Fast transit to Tokyo Skytree. Ascend to the Tembo Deck / Galleria for 10 participants. Enjoy lunch and panoramic Tokyo views at Solamachi.",
+                itin5Title: "Shinjuku Scramble Crossing & City Experience",
+                itin5Desc: "Travel via train to Shinjuku. Experience iconic Tokyo streetscapes, group safety briefing around major pedestrian crossings, and brief break.",
+                itin6Title: "Tokyo Disney Resort (After 5PM Passport Entry)",
+                itin6Desc: "Arrive at Tokyo Disney Resort before 17:00. Enter with After 5 Passport for evening attractions, dinner, and the spectacular evening parade.",
+                itin7Title: "Return Journey to Hitachi Station (Bus or Limited Express)",
+                itin7Desc: "Board late-evening limited express train (e.g., 21:45 departure from Tokyo Station) back to Hitachi Station.",
+                
+                leg1Tag: "Leg 1",
+                route1Sub: "Hitachi ➔ Tokyo Station",
+                route1Title: "Morning Highway Bus / Limited Express",
+                route1Desc: "Direct JR Highway Bus from Hitachi Station to Tokyo Station (Nihonbashi Exit), or Limited Express Train (Joban Line). Takes ~2 hours. Cost approx. ¥3,000 per person.",
+                route1Dur: "Duration: ~1 hr 45 min - 2 hrs",
+                route1Cost: "Cost (11 pax): ¥33,000 (approx)",
+
+                leg2Tag: "Leg 2",
+                route2Sub: "Tokyo Station ➔ Asakusa",
+                route2Title: "Tokyo Metro Ginza Line",
+                route2Desc: "Walk to Ginza Line platform at Tokyo/Nihonbashi, take direct subway to Asakusa Station (G19). Fast, cheap, and convenient for groups.",
+                route2Dur: "Duration: 15 minutes",
+                route2Cost: "Cost (11 pax): ¥2,200 (¥200 / person)",
+
+                leg3Tag: "Leg 3",
+                route3Sub: "Asakusa ➔ Tokyo Skytree",
+                route3Title: "Tobu Skytree Line / Walk across Sumida River",
+                route3Desc: "Fastest route: Tobu Skytree Line from Asakusa to Tokyo Skytree Station (1 stop, 3 mins) or a scenic 15-minute group walk across the Sumida River pedestrian bridge.",
+                route3Dur: "Duration: 3 mins train / 15 mins walk",
+                route3Cost: "Cost (11 pax): ¥1,760 train (¥160 / person) or Free (Walk)",
+
+                leg4Tag: "Leg 4",
+                route4Sub: "Skytree ➔ Shinjuku ➔ Disney Resort",
+                route4Title: "Train to Shinjuku, then JR Keiyo Line to Maihama",
+                route4Desc: "Subway/train transit to Shinjuku for the afternoon session, then group transfer via JR lines to Tokyo Station and direct to Maihama Station (Tokyo Disney Resort).",
+                route4Dur: "Duration: ~75 mins total transit",
+                route4Cost: "Cost (11 pax): Approx. ¥6,050 total",
+
+                returnTitle: "Return Transport Options: Tokyo Disney Resort / Tokyo to Hitachi Station",
+                returnDesc: "For returning to Hitachi after the evening events, two structured and reliable return options are available: direct highway bus schedules (such as 18:15 and 20:30 departures) or JR Limited Express (特急) trains from Tokyo/Ueno, including the 21:45 train from Tokyo Station.",
+                returnOptATitle: "Option A: Direct Highway Bus (e.g., 20:30 Departure)",
+                returnOptARoute: "Route: Tokyo Station / Expressway bus connections from Tokyo Disney Resort area to Hitachi Station.",
+                returnOptATime: "Departure Time: Evening departures around 18:15 or 20:30.",
+                returnOptADur: "Duration: Approx. 2 hours 30 minutes.",
+                returnOptACost: "Cost per person: Approx. ¥4,000 (Total for 11: ¥44,000).",
+                returnOptBTitle: "Option B: JR Limited Express (特急) Train Breakdown",
+                returnOptBRoute: "Route: Maihama to Tokyo/Ueno via JR Keiyo & Yamanote/Keihin-Tohoku Line, then Joban Line Limited Express (Hitachi/Tokiwa) to Hitachi Station.",
+                returnOptBSched: "Schedule: Evening departures including the 21:45 Limited Express train from Tokyo Station to Hitachi Station.",
+                returnOptBDur: "Duration: ~85 minutes from Tokyo to Hitachi.",
+                returnOptBCost: "Cost per person: Reserved Limited Express fare approx. ¥5,000 per person.",
+
+                budgetHeading: "Interactive Cost & Budget Estimation",
+                budgetSub: "Adjust the participant count (1–11) below to recalculate costs instantly.",
+                thCategory: "Category / Item",
+                thUnit: "Unit Price (JPY)",
+                thQty: "Quantity / Pax (1-11)",
+                thTotal: "Total (JPY)",
+
+                item1Title: "1. Hitachi to Tokyo Station (Highway Bus / Train)",
+                item1Desc: "Morning transport for participants",
+                item2Title: "2. Tokyo Metro & Local Transfers (Asakusa & Shinjuku)",
+                item2Desc: "Intra-city metro passes / tickets",
+                item3Title: "3. Tokyo Skytree Observation Deck (Tembo Deck)",
+                item3Desc: "Adult rate (max 11 participants)",
+                item4Title: "4. Tokyo Disney Resort After 5PM Passport",
+                item4Desc: "Evening entry for parade and rides",
+                item5Title: "5. Return Bus / Limited Express to Hitachi Station",
+                item5Desc: "Late night secure return transport (e.g. 21:45 train)",
+                item6Title: "6. Food & Beverage Allowance (Maximum Budget)",
+                item6Desc: "Lunch, snacks, and dinner allowance",
+                totalCostLabel: "Estimated Total Cost:",
+
+                foodNoteTitle: "Food & Beverage Policy",
+                foodNoteDesc: "Food & Beverages will be purchased upon request for Chaperones. All receipts will be processed by 明秀学園 staff member.",
+                
+                propTitle: "Proposal Notes for Australian Guests and Hosts",
+                propRatioTitle: "Chaperone & Student Ratio",
+                propRatioDesc: "With 3 experienced chaperones supervising 8 high school students (a 1:2.6 ratio), student safety and accountability are maintained throughout all transit junctions (Tokyo Station, Asakusa, Shinjuku, and Disney Resort).",
+                propTimeTitle: "Time Management & Contingency",
+                propTimeDesc: "All scheduled stops have buffer times. The After 5PM passport ensures Australian guests and hosts enjoy the peak evening atmosphere and parade at Disney Resort without excessive fatigue before the late-evening return to Hitachi.",
+                propNextTitle: "Trip Value & Experience Highlights",
+                propNextDesc: "A good value for money experience that mixes ancient Tokyo with modern Tokyo and appeals to both young and not so young alike.",
+                
+                resetBtnText: "Reset Defaults",
+                footerText1: "Field Trip Proposal & Interactive Planner | Australian Guests and Hosts Excursion Project",
+                footerText2: "Date of Travel: Sunday, October 25, 2026 | Bilingual Support (EN / JA)"
+            },
+            ja: {
+                appMainHeading: "オーストラリアからのゲストとホストのための東京遠足プラン",
+                appSubHeading: "実施日：2026年10月25日（日） | 参加者：生徒8名 ＋ 引率教員3名（計11名）",
+                langBtnText: "English / 日本語",
+                statParticipants: "総参加者数（生徒8名＋引率3名）",
+                statDate: "日帰りスケジュール（日曜）",
+                statBudget: "推定総予算（11名分）",
+                statSafety: "引率・安全管理対応ルート",
+                menuItinerary: "詳細日程表",
+                menuRoutes: "移動ルート・交通手段",
+                menuBudget: "予算シミュレーター",
+                menuProposal: "管理職向け提案・安全留意事項",
+                
+                itinTitle: "詳細スケジュール（2026年10月25日）",
+                itinSub: "朝の移動、文化体験、象徴的な東京のランドマーク、夜のテーマパーク、そして遅い帰宅まで網羅したタイムラインです。",
+                itin1Title: "日立駅発 ➔ 東京駅着",
+                itin1Desc: "早朝に日立駅を出発。JR高速バスまたは特急列車にて東京駅（日本橋口・八重洲口）に到着。",
+                itin2Title: "東京駅記念撮影 ➔ 浅草へ移動",
+                itin2Desc: "歴史ある東京駅丸の内駅舎の前で記念撮影。その後、銀座線にて浅草駅へ移動。",
+                itin3Title: "浅草散策 ＆ 浅草寺参拝",
+                itin3Desc: "雷門、仲見世通り、浅草寺を引率のもと約1時間で巡る散策ウォーク。",
+                itin4Title: "東京スカイツリー見学 ＆ 昼食（展望デッキツアー）",
+                itin4Desc: "東京スカイツリーへ迅速に移動。10名分の展望デッキ入場。ソラマチでの昼食と絶景鑑賞。",
+                itin5Title: "新宿スクランブル交差点 ＆ 街並み体験",
+                itin5Desc: "電車で新宿へ移動。日本を代表するスクランブル交差点付近の街並み体験と休憩。",
+                itin6Title: "東京ディズニーリゾート（アフター5パスポート入場）",
+                itin6Desc: "17:00前に東京ディズニーリゾートへ到着。アフター5パスポートで夜のパーク・パレードを満喫。",
+                itin7Title: "日立駅への帰路（東京駅21:45発特急列車等）",
+                itin7Desc: "東京駅21:45発などの特急列車を利用し、安全に日立駅へ帰着。",
+                
+                leg1Tag: "区間 1",
+                route1Sub: "日立 ➔ 東京駅",
+                route1Title: "朝の高速バス / 特急列車",
+                route1Desc: "日立駅から東京駅（日本橋口）への直通JR高速バスまたは常磐線特急。所要時間約2時間。1人約3,000円。",
+                route1Dur: "所要時間：約1時間45分～2時間",
+                route1Cost: "費用（11名）：約33,000円",
+
+                leg2Tag: "区間 2",
+                route2Sub: "東京駅 ➔ 浅草",
+                route2Title: "東京メトロ銀座線",
+                route2Desc: "東京・日本橋駅から銀座線を利用し、浅草駅（G19）へ直行。団体移動に最適で迅速かつ安価です。",
+                route2Dur: "所要時間：15分",
+                route2Cost: "費用（11名）：2,200円（1人200円）",
+
+                leg3Tag: "区間 3",
+                route3Sub: "浅草 ➔ 東京スカイツリー",
+                route3Title: "東武スカイツリーライン / 隅田川ウォーク",
+                route3Desc: "最速ルート：東武スカイツリーラインで浅草駅からとうきょうスカイツリー駅まで1駅（約3分）、または隅田川を渡る徒歩約15分の scenic なルート。",
+                route3Dur: "所要時間：電車3分 / 徒歩15分",
+                route3Cost: "費用（11名）：電車1,760円（1人160円）または徒歩無料",
+
+                leg4Tag: "区間 4",
+                route4Sub: "スカイツリー ➔ 新宿 ➔ ディズニーリゾート",
+                route4Title: "新宿経由、JR京葉線で舞浜へ",
+                route4Desc: "午後のセッションに向けて新宿後、JR線等を経由して舞浜駅（東京ディズニーリゾート）へスムーズに乗り継ぎ。",
+                route4Dur: "所要時間：乗換含め計約75分",
+                route4Cost: "費用（11名）：合計約6,050円",
+
+                returnTitle: "帰路の交通手段：東京ディズニーリゾート / 東京から日立駅へ",
+                returnDesc: "夜のイベント終了後の帰路については、直行高速バス（18:15発や20:30発など）または東京駅21:45発の特急列車など、確実な選択肢をご用意しています。",
+                returnOptATitle: "選択肢A：直行高速バス（例：20:30発）",
+                returnOptARoute: "ルート：東京駅 / 東京ディズニーリゾート周辺から日立駅への高速バス接続。",
+                returnOptATime: "出発時刻：18:15または20:30頃の夜間発。",
+                returnOptADur: "所要時間：約2時間30分。",
+                returnOptACost: "1人あたりの費用：約4,000円（11名合計：44,000円）。",
+                returnOptBTitle: "選択肢B：JR特急列車利用（東京駅21:45発など）",
+                returnOptBRoute: "ルート：舞浜から東京へJR線経由後、東京駅21:45発の常磐線特急（ひたち・ときわ）で日立駅へ直行。",
+                returnOptBSched: "ダイヤ：東京駅21:45発の特急列車を活用し確実に帰着。",
+                returnOptBDur: "所要時間：東京から日立まで約85分。",
+                returnOptBCost: "1人あたりの費用：指定席特急料金含め約5,000円。",
+
+                budgetHeading: "インタラクティブ費用・予算試算表",
+                budgetSub: "以下の参加者人数（1〜11名）を調整すると、費用が即座に再計算されます。",
+                thCategory: "項目 / カテゴリ",
+                thUnit: "単価 (JPY)",
+                thQty: "数量 / 人数 (1-11)",
+                thTotal: "合計 (JPY)",
+
+                item1Title: "1. 日立〜東京駅間（高速バス / 特急）",
+                item1Desc: "参加者の朝の移動交通費",
+                item2Title: "2. 東京メトロおよび市内移動（浅草・新宿）",
+                item2Desc: "都内地下鉄パス / 切符",
+                item3Title: "3. 東京スカイツリー展望デッキ入場料",
+                item3Desc: "大人料金（最大11名分）",
+                item4Title: "4. 東京ディズニーリゾート アフター5パスポート",
+                item4Desc: "パレード・アトラクション用の夜間入場券",
+                item5Title: "5. 日立駅への帰路（特急列車等）",
+                item5Desc: "夜間安全帰宅のための交通手段（例: 21:45発）",
+                item6Title: "6. 飲食費補助（上限予算）",
+                item6Desc: "昼食、軽食、夕食代の補助",
+                totalCostLabel: "推定総予算：",
+
+                foodNoteTitle: "飲食費に関する方針",
+                foodNoteDesc: "飲食費は引率者の求めに応じて購入され、すべての領収書は明秀学園のスタッフによって処理されます。",
+                
+                propTitle: "オーストラリアからのゲストとホスト向け提案・安全管理メモ",
+                propRatioTitle: "引率者と生徒の比率",
+                propRatioDesc: "生徒8名に対して経験豊富な引率者3名（1:2.6の比率）を配置し、東京駅・浅草・新宿・ディズニーリゾートの各乗換・移動拠点において万全の安全管理体制を維持します。",
+                propTimeTitle: "時間管理と不測の事態への備え",
+                propTimeDesc: "各行程には余裕を持たせたバッファ時間を確保。アフター5パスポートの活用により、過度な疲労を防ぎつつ、ディズニーリゾートのハイライトである夜の雰囲気を安全に満喫できます。",
+                propNextTitle: "プランの価値とハイライト",
+                propNextDesc: "古き良き東京と現代の東京を融合させ、若い世代からそうでない世代まで幅広く楽しめる、コストパフォーマンスに優れた充実の体験プランです。",
+                
+                resetBtnText: "初期値に戻す",
+                footerText1: "東京遠足プラン ＆ インタラクティブプランナー | オーストラリアゲスト・ホスト交流プロジェクト",
+                footerText2: "実施日：2026年10月25日（日） | バイリンガル対応 (EN / JA)"
+            }
+        };
+
+        const unitPrices = [3000, 800, 2400, 7500, 5000, 2273];
+
+        function updateBudget() {
+            let grandTotal = 0;
+            for (let i = 1; i <= 6; i++) {
+                const qtyInput = document.getElementById('qty-' + i);
+                let qty = parseInt(qtyInput.value) || 0;
+                if (qty < 1) qty = 1;
+                if (qty > 11) qty = 11;
+                qtyInput.value = qty;
+
+                const lineTotal = qty * unitPrices[i - 1];
+                grandTotal += lineTotal;
+                document.getElementById('total-' + i).innerText = '¥' + lineTotal.toLocaleString();
+            }
+            document.getElementById('total-cost-display').innerText = '¥' + grandTotal.toLocaleString();
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ja' : 'en';
+            const t = translations[currentLang];
+
+            document.getElementById('app-main-heading').innerText = t.appMainHeading;
+            document.getElementById('app-sub-heading').innerText = t.appSubHeading;
+            document.getElementById('lang-btn-text').innerText = t.langBtnText;
+            document.getElementById('stat-participants').innerText = t.statParticipants;
+            document.getElementById('stat-date').innerText = t.statDate;
+            document.getElementById('stat-budget').innerText = t.statBudget;
+            document.getElementById('stat-safety').innerText = t.statSafety;
+            
+            document.getElementById('menu-itinerary').innerText = t.menuItinerary;
+            document.getElementById('menu-routes').innerText = t.menuRoutes;
+            document.getElementById('menu-budget').innerText = t.menuBudget;
+            document.getElementById('menu-proposal').innerText = t.menuProposal;
+
+            document.getElementById('itin-title').innerText = t.itinTitle;
+            document.getElementById('itin-sub').innerText = t.itinSub;
+            document.getElementById('itin-1-title').innerText = t.itin1Title;
+            document.getElementById('itin-1-desc').innerText = t.itin1Desc;
+            document.getElementById('itin-2-title').innerText = t.itin2Title;
+            document.getElementById('itin-2-desc').innerText = t.itin2Desc;
+            document.getElementById('itin-3-title').innerText = t.itin3Title;
+            document.getElementById('itin-3-desc').innerText = t.itin3Desc;
+            document.getElementById('itin-4-title').innerText = t.itin4Title;
+            document.getElementById('itin-4-desc').innerText = t.itin4Desc;
+            document.getElementById('itin-5-title').innerText = t.itin5Title;
+            document.getElementById('itin-5-desc').innerText = t.itin5Desc;
+            document.getElementById('itin-6-title').innerText = t.itin6Title;
+            document.getElementById('itin-6-desc').innerText = t.itin6Desc;
+            document.getElementById('itin-7-title').innerText = t.itin7Title;
+            document.getElementById('itin-7-desc').innerText = t.itin7Desc;
+
+            document.getElementById('leg-1-tag').innerText = t.leg1Tag;
+            document.getElementById('route-1-sub').innerText = t.route1Sub;
+            document.getElementById('route-1-title').innerText = t.route1Title;
+            document.getElementById('route-1-desc').innerText = t.route1Desc;
+            document.getElementById('route-1-dur').innerText = t.route1Dur;
+            document.getElementById('route-1-cost').innerText = t.route1Cost;
+
+            document.getElementById('leg-2-tag').innerText = t.leg2Tag;
+            document.getElementById('route-2-sub').innerText = t.route2Sub;
+            document.getElementById('route-2-title').innerText = t.route2Title;
+            document.getElementById('route-2-desc').innerText = t.route2Desc;
+            document.getElementById('route-2-dur').innerText = t.route2Dur;
+            document.getElementById('route-2-cost').innerText = t.route2Cost;
+
+            document.getElementById('leg-3-tag').innerText = t.leg3Tag;
+            document.getElementById('route-3-sub').innerText = t.route3Sub;
+            document.getElementById('route-3-title').innerText = t.route3Title;
+            document.getElementById('route-3-desc').innerText = t.route3Desc;
+            document.getElementById('route-3-dur').innerText = t.route3Dur;
+            document.getElementById('route-3-cost').innerText = t.route3Cost;
+
+            document.getElementById('leg-4-tag').innerText = t.leg4Tag;
+            document.getElementById('route-4-sub').innerText = t.route4Sub;
+            document.getElementById('route-4-title').innerText = t.route4Title;
+            document.getElementById('route-4-desc').innerText = t.route4Desc;
+            document.getElementById('route-4-dur').innerText = t.route4Dur;
+            document.getElementById('route-4-cost').innerText = t.route4Cost;
+
+            document.getElementById('return-title').innerHTML = `<i class="fa-solid fa-bus text-accent mr-3"></i> ${t.returnTitle}`;
+            document.getElementById('return-desc').innerText = t.returnDesc;
+            document.getElementById('return-opt-a-title').innerHTML = `<i class="fa-solid fa-bus mr-2"></i> ${t.returnOptATitle}`;
+            document.getElementById('return-opt-a-route').innerHTML = `<strong>${currentLang === 'ja' ? 'ルート：' : 'Route:'}</strong> ${t.returnOptARoute.split('：')[1] || t.returnOptARoute.split(': ')[1]}`;
+            document.getElementById('return-opt-a-time').innerHTML = `<strong>${currentLang === 'ja' ? '出発時刻：' : 'Departure Time:'}</strong> ${t.returnOptATime.split('：')[1] || t.returnOptATime.split(': ')[1]}`;
+            document.getElementById('return-opt-a-dur').innerHTML = `<strong>${currentLang === 'ja' ? '所要時間：' : 'Duration:'}</strong> ${t.returnOptADur.split('：')[1] || t.returnOptADur.split(': ')[1]}`;
+            document.getElementById('return-opt-a-cost').innerHTML = `<strong>${currentLang === 'ja' ? '1人あたりの費用：' : 'Cost per person:'}</strong> ${t.returnOptACost.split('：')[1] || t.returnOptACost.split(': ')[1]}`;
+
+            document.getElementById('return-opt-b-title').innerHTML = `<i class="fa-solid fa-train mr-2"></i> ${t.returnOptBTitle}`;
+            document.getElementById('return-opt-b-route').innerHTML = `<strong>${currentLang === 'ja' ? 'ルート：' : 'Route:'}</strong> ${t.returnOptBRoute.split('：')[1] || t.returnOptBRoute.split(': ')[1]}`;
+            document.getElementById('return-opt-b-sched').innerHTML = `<strong>${currentLang === 'ja' ? 'ダイヤ：' : 'Schedule:'}</strong> ${t.returnOptBSched.split('：')[1] || t.returnOptBSched.split(': ')[1]}`;
+            document.getElementById('return-opt-b-dur').innerHTML = `<strong>${currentLang === 'ja' ? '所要時間：' : 'Duration:'}</strong> ${t.returnOptBDur.split('：')[1] || t.returnOptBDur.split(': ')[1]}`;
+            document.getElementById('return-opt-b-cost').innerHTML = `<strong>${currentLang === 'ja' ? '1人あたりの費用：' : 'Cost per person:'}</strong> ${t.returnOptBCost.split('：')[1] || t.returnOptBCost.split(': ')[1]}`;
+
+            document.getElementById('budget-heading').innerText = t.budgetHeading;
+            document.getElementById('budget-sub').innerText = t.budgetSub;
+            document.getElementById('th-category').innerText = t.thCategory;
+            document.getElementById('th-unit').innerText = t.thUnit;
+            document.getElementById('th-qty').innerText = t.thQty;
+            document.getElementById('th-total').innerText = t.thTotal;
+
+            document.getElementById('item-1-title').innerText = t.item1Title;
+            document.getElementById('item-1-desc').innerText = t.item1Desc;
+            document.getElementById('item-2-title').innerText = t.item2Title;
+            document.getElementById('item-2-desc').innerText = t.item2Desc;
+            document.getElementById('item-3-title').innerText = t.item3Title;
+            document.getElementById('item-3-desc').innerText = t.item3Desc;
+            document.getElementById('item-4-title').innerText = t.item4Title;
+            document.getElementById('item-4-desc').innerText = t.item4Desc;
+            document.getElementById('item-5-title').innerText = t.item5Title;
+            document.getElementById('item-5-desc').innerText = t.item5Desc;
+            document.getElementById('item-6-title').innerText = t.item6Title;
+            document.getElementById('item-6-desc').innerText = t.item6Desc;
+            document.getElementById('total-cost-label').innerText = t.totalCostLabel;
+
+            document.getElementById('food-note-title').innerText = t.foodNoteTitle;
+            document.getElementById('food-note-desc').innerText = t.foodNoteDesc;
+
+            document.getElementById('prop-title').innerHTML = `<i class="fa-solid fa-file-shield text-primary mr-3"></i> ${t.propTitle}`;
+            document.getElementById('prop-ratio-title').innerHTML = `<i class="fa-solid fa-shield-halved text-emerald-600 mr-2"></i> ${t.propRatioTitle}`;
+            document.getElementById('prop-ratio-desc').innerText = t.propRatioDesc;
+            document.getElementById('prop-time-title').innerHTML = `<i class="fa-solid fa-clock-rotate-left text-blue-600 mr-2"></i> ${t.propTimeTitle}`;
+            document.getElementById('prop-time-desc').innerText = t.propTimeDesc;
+            document.getElementById('prop-next-title').innerText = t.propNextTitle;
+            document.getElementById('prop-next-desc').innerText = t.propNextDesc;
+            document.getElementById('reset-btn-text').innerText = t.resetBtnText;
+            document.getElementById('footer-text-1').innerText = t.footerText1;
+            document.getElementById('footer-text-2').innerText = t.footerText2;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-primary', 'text-white');
+                el.classList.add('text-slate-600', 'hover:bg-slate-100');
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-btn-' + tabId);
+            activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+            activeBtn.classList.add('bg-primary', 'text-white');
+        }
+
+        function resetBudget() {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('qty-' + i).value = (i === 3 ? 10 : 11);
+            }
+            updateBudget();
+        }
+
+        // Initialize budget calculation on load
+        window.onload = function() {
+            updateBudget();
+        };
+    </script>
+</body>
+</html>
